@@ -1,16 +1,17 @@
-{{ group }}
-
 <div class="grid-container">
     <div class="col-1 title">Total</div>
     <div class="col-2 title">Size</div>
     <div class="col-3 title">Price</div>
     <!-- Spacer -->
     <div class="col-4"></div>
-    <ng-container *ngFor="let order of (displayOrders$ | async)">
-        <div class="col-1">{{ order.total }}</div>
-        <div class="col-2">{{ order.size }}</div>
-        <div class="col-3">{{ order.price | currency }}</div>
-        <!-- Spacer -->
-        <div class="col-4"> </div>
+    <ng-container *ngFor="let order of (displayOrders$ | async); index as i">
+        <!-- Limit to viewing N at a time -->
+        <ng-container *ngIf="i < 15">
+            <div class="col-1">{{ order.total }}</div>
+            <div class="col-2">{{ order.size }}</div>
+            <div class="col-3">{{ order.price | currency }}</div>
+            <!-- Spacer -->
+            <div class="col-4"> </div>
+        </ng-container>
     </ng-container>
 </div>
