@@ -1,10 +1,13 @@
-<app-group-control (groupChanged)="groupChanged($event)"></app-group-control>
 
-<div class="order-table-container">
-    <div class="order-table">
-        <app-order-table [orders$]="bids$" [group]="group"></app-order-table>
+<mat-card>
+    <app-group-control (groupChanged)="groupChanged($event)"></app-group-control>
+
+    <div class="order-table-container">
+        <div class="order-table">
+            <app-order-table [orders$]="bids$" [group]="group"></app-order-table>
+        </div>
+        <div class="order-table">
+            <app-order-table [orders$]="asks$" [group]="group" [flipAxis]="true"></app-order-table>
+        </div>
     </div>
-    <div class="order-table">
-        <app-order-table [orders$]="asks$" [group]="group" [flipAxis]="true"></app-order-table>
-    </div>
-</div>
+</mat-card>

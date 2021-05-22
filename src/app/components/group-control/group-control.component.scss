@@ -2,4 +2,12 @@
     display: flex;
     width: 175px;
     justify-content: space-between;
+    color: #b1b1b1;
+}
+
+:host ::ng-deep {
+    .mat-button {
+        min-width: auto;
+        line-height: unset;
+    }
 }

@@ -2,6 +2,6 @@
     Group: <span>{{ groupVal }}</span>
 </div>
 <div>
-    <button [disabled]="groupIndex === 0" (click)="groupUpdated(-1)">-</button>
-    <button [disabled]="groupIndex === groups.length - 1" (click)="groupUpdated(1)">+</button>
+    <button mat-button [disabled]="groupIndex === 0" (click)="groupUpdated(-1)">-</button>
+    <button mat-button [disabled]="groupIndex === groups.length - 1" (click)="groupUpdated(1)">+</button>
 </div>
