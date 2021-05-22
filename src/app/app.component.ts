@@ -1,22 +1,19 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { OrdersService } from './services/orders.service';
+import { OrderDataService } from './services/order-data.service';
+import { OrderService } from './services/order.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [OrdersService],
+  providers: [OrderService],
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'orderbook';
 
-  constructor(private orders: OrdersService) {}
+  constructor(private orderData: OrderService) {}
 
-  ngOnInit(): void {
-    this.orders.connect();
-  }
+  ngOnInit(): void {}
 
-  ngOnDestroy(): void {
-    this.orders.close();
-  }
+  ngOnDestroy(): void {}
 }

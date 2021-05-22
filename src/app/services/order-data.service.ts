@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
-import { catchError, switchAll, tap } from 'rxjs/operators';
-import { EMPTY, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 const ORDERS_URL = 'wss://www.cryptofacilities.com/ws/v1';
 const ORDERS_START_MESSAGE = {
@@ -10,20 +9,22 @@ const ORDERS_START_MESSAGE = {
   product_ids: ['PI_XBTUSD'],
 };
 
-@Injectable({
-  providedIn: 'root',
-})
-export class OrdersService {
+@Injectable()
+export class OrderDataService {
   socket$: WebSocketSubject<any>;
   messages$$: Subject<any> = new Subject<any>();
 
   constructor() {}
 
   public connect(): void {
+    if (this.socket$ || !this.socket$?.closed) {
+      return;
+    }
+
     this.socket$ = this.createSocket();
 
     this.socket$.subscribe({
-      next: console.log,
+      next: (data) => this.messageRecieved(data),
       error: console.error,
     });
 
@@ -32,6 +33,11 @@ export class OrdersService {
 
   public close(): void {
     this.socket$.complete();
+  }
+
+  private messageRecieved(data: any): void {
+    console.log(data);
+    this.messages$$.next(data);
   }
 
   /**
