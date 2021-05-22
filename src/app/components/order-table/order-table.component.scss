@@ -10,7 +10,8 @@
 
 .grid-container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 0.25fr;
+    grid-template-columns: 1fr 1fr 1fr 0.2fr;
+    grid-template-rows: 30px auto auto auto;
     text-align: right;
 }
 
@@ -19,7 +20,7 @@
     color: #b1b1b1;
 }
 
-
 .col-3:not(.title) {
     color: #29baa5;
 }
+
