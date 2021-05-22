@@ -1,5 +1,8 @@
 # Orderbook TODO
 - Service for websocket interaction
+  - connect
+  - close
+  - retry connection
 - Store for data
   - [price, size][]
   - send message to kickstart
