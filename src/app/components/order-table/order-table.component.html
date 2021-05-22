@@ -1,0 +1,13 @@
+<div class="grid-container">
+    <div class="col-1 title">Total</div>
+    <div class="col-2 title">Size</div>
+    <div class="col-3 title">Price</div>
+    <div></div>
+    <ng-container *ngFor="let order of orders">
+        <div class="col-1">----</div>
+        <div class="col-2">{{ order.size }}</div>
+        <div class="col-3">{{ order.price | currency }}</div>
+        <!-- Spacer -->
+        <div> </div>
+    </ng-container>
+</div>

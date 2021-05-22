@@ -32,7 +32,7 @@ export class OrderService implements OnDestroy {
 
     this.bids$ = this.bidQuery.selectAll({
       sortBy: 'price',
-      sortByOrder: AkOrder.ASC,
+      sortByOrder: AkOrder.DESC,
     });
   }
 

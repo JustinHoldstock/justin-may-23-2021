@@ -5,7 +5,7 @@
   - retry
 - Store for data
   - [price, size][]
-  - send message to kickstart
+
   - handle errors gracefully
     - connection error
     - update error
@@ -25,3 +25,5 @@ Notes:
 - Tests
 - responsive
 - Questions.MD for technical Qs
+- pause stream on tab navigation
+- only update total is previous has changed

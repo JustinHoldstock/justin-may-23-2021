@@ -1,0 +1,18 @@
+:host {
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 0.25fr;
+  text-align: right;
+}
+
+.title {
+    text-decoration: underline;
+}
+
+.col-1 {}
+
+.col-2 {}
+
+.col-3 {}
