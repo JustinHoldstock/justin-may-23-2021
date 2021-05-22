@@ -1,10 +1,8 @@
-<div>
+<div class="order-table">
     <h2>Bids</h2>
     <app-order-table [orders$]="bids$"></app-order-table>
 </div>
-<div>
+<div class="order-table">
     <h2>Asks</h2>
-    <ng-container *ngIf="asks$ | async as asks">
-        <!-- <app-order-table [orders]="asks"></app-order-table> -->
-    </ng-container>
+    <app-order-table [orders$]="asks$" [flipAxis]="true"></app-order-table>
 </div>

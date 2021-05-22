@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  HostBinding,
   Input,
   OnInit,
 } from '@angular/core';
@@ -19,7 +20,12 @@ interface OrderDisplay extends Order {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrderTableComponent implements OnInit {
+  @HostBinding('class.flipped') get flipped(): boolean {
+    return this.flipAxis;
+  }
+
   @Input() orders$: Observable<Order[]>;
+  @Input() flipAxis: boolean;
 
   displayOrders$: Observable<OrderDisplay[]>;
 

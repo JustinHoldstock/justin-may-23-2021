@@ -1,18 +1,24 @@
-:host {
+:host.flipped {
+    .grid-container {
+        direction: rtl;
+    }
+
+    .col-3:not(.title) {
+        color: #ff5a6a;
+    }
 }
 
 .grid-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 0.25fr;
-  text-align: right;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 0.25fr;
+    text-align: right;
 }
 
 .title {
     text-decoration: underline;
 }
 
-.col-1 {}
 
-.col-2 {}
-
-.col-3 {}
+.col-3:not(.title) {
+    color: #29baa5;
+}
