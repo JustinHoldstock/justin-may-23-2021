@@ -9,6 +9,13 @@ const ORDERS_START_MESSAGE = {
   product_ids: ['PI_XBTUSD'],
 };
 
+interface OrderMessage {
+  feed: string;
+  product_id: string;
+  bids: [number, number][];
+  asks: [number, number][];
+}
+
 @Injectable()
 export class OrderDataService {
   socket$: WebSocketSubject<any>;
@@ -17,7 +24,7 @@ export class OrderDataService {
   constructor() {}
 
   public connect(): void {
-    if (this.socket$ || !this.socket$?.closed) {
+    if (this.socket$ || this.socket$?.closed) {
       return;
     }
 
@@ -35,9 +42,8 @@ export class OrderDataService {
     this.socket$.complete();
   }
 
-  private messageRecieved(data: any): void {
-    console.log(data);
-    this.messages$$.next(data);
+  private messageRecieved({ asks }: OrderMessage): void {
+    this.messages$$.next(asks);
   }
 
   /**
@@ -51,7 +57,6 @@ export class OrderDataService {
         next: () => console.log('Socket closed, connection lost'),
       },
       serializer: (message) => {
-        console.log(message);
         return JSON.stringify(message);
       },
       deserializer: ({ data }) => JSON.parse(data),
