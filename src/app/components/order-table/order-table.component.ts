@@ -26,6 +26,7 @@ export class OrderTableComponent implements OnInit {
 
   @Input() orders$: Observable<Order[]>;
   @Input() flipAxis: boolean;
+  @Input() group = 0.5; // zero means no group AKA 50c
 
   displayOrders$: Observable<OrderDisplay[]>;
 
