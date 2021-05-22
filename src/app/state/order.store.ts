@@ -4,7 +4,6 @@ import { Order } from './order.model';
 
 export interface OrdersState extends EntityState<Order, number> {}
 
-@Injectable({ providedIn: 'root' })
 @StoreConfig({ name: 'orders' })
 export class OrdersStore extends EntityStore<OrdersState> {
   constructor() {

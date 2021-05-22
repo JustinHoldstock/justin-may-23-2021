@@ -2,7 +2,7 @@
 - Service for websocket interaction
   - connect
   - close
-  - retry connection
+  - retry
 - Store for data
   - [price, size][]
   - send message to kickstart

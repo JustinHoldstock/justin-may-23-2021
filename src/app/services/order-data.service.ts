@@ -42,8 +42,8 @@ export class OrderDataService {
     this.socket$.complete();
   }
 
-  private messageRecieved({ asks }: OrderMessage): void {
-    this.messages$$.next(asks);
+  private messageRecieved({ asks, bids }: OrderMessage): void {
+    this.messages$$.next({ asks, bids });
   }
 
   /**

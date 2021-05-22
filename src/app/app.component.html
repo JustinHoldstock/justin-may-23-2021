@@ -1,3 +1,16 @@
 <div>
-    {{ orders$ | async | json}}
+    <h2>Bids</h2>
+    <ng-container *ngIf="bids$ | async as bids">
+        <div *ngFor="let bid of bids">
+            {{ bid | json}}
+        </div>
+    </ng-container>
+</div>
+<div>
+    <h2>Asks</h2>
+    <ng-container *ngIf="asks$ | async as asks">
+        <div *ngFor="let ask of asks">
+            {{ ask | json}}
+        </div>
+    </ng-container>
 </div>
