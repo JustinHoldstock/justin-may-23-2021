@@ -21,8 +21,9 @@ export class OrderDataService {
   socket$: WebSocketSubject<any>;
   messages$$: Subject<any> = new Subject<any>();
 
-  constructor() {}
-
+  /**
+   * Connect or reconnect a websocket to stream order data
+   */
   public connect(): void {
     if (this.socket$ || this.socket$?.closed) {
       return;
@@ -38,6 +39,9 @@ export class OrderDataService {
     this.socket$.next(ORDERS_START_MESSAGE);
   }
 
+  /**
+   * Close off a websocket
+   */
   public close(): void {
     this.socket$.complete();
   }

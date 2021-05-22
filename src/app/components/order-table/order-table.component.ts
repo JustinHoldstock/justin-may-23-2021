@@ -24,13 +24,15 @@ export class OrderTableComponent implements OnInit {
     return this.flipAxis;
   }
 
+  // Observable containing the list of orders
   @Input() orders$: Observable<Order[]>;
+  // Whether or not to flip the axis for asks. Bids run right to left
   @Input() flipAxis: boolean;
-  @Input() group = 0.5;
+  // Current price group. In dollars
+  @Input() priceGroup = 0.5;
 
+  // Used for storing display values, including totals and price groups
   displayOrders$: Observable<OrderDisplay[]>;
-
-  constructor() {}
 
   ngOnInit(): void {
     this.displayOrders$ = this.orders$.pipe(
@@ -39,10 +41,8 @@ export class OrderTableComponent implements OnInit {
         // We always know that the store gives us sorted values. First value is
         // starting bound
         const cap = orders.shift();
-        const capPrice = cap.price + this.group;
-        const diff = capPrice % this.group;
-        let currPriceGroup = capPrice - diff;
-        const additive = this.group * (this.flipped ? 1 : -1);
+        let currPriceGroup = this.calculateInitialPriceGroup(cap);
+        const additive = this.priceGroup * (this.flipped ? 1 : -1);
         let nextPriceGroup = currPriceGroup + additive;
 
         let displayGroup = {
@@ -58,9 +58,10 @@ export class OrderTableComponent implements OnInit {
         orders.forEach(({ size, price }) => {
           // if the difference in price is greater than a single group step
           // we know we're in a new group
-          if (price % currPriceGroup > this.group) {
+          if (price % currPriceGroup > this.priceGroup) {
             grandTotal += displayGroup.size;
             displayGroup.total = grandTotal;
+
             displayItems.push(displayGroup);
             currPriceGroup = nextPriceGroup;
             nextPriceGroup += additive;
@@ -77,5 +78,17 @@ export class OrderTableComponent implements OnInit {
         return displayItems;
       })
     );
+  }
+
+  /**
+   * Given a cap item (first item in the list, either highest or lowest price, depending on sort)
+   * calculate the first group needed to group orders by price group
+   * @param capItem - Highest or lowest priced order
+   * @returns A price that we can group orders into, based on group price
+   */
+  calculateInitialPriceGroup(capItem: Order): number {
+    const capPrice = capItem.price + this.priceGroup;
+    const diff = capPrice % this.priceGroup;
+    return capPrice - diff;
   }
 }
