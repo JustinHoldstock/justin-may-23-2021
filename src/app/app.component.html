@@ -1,12 +1,12 @@
-<app-group-control></app-group-control>
+<app-group-control (groupChanged)="groupChanged($event)"></app-group-control>
 
 <div class="order-table-container">
     <div class="order-table">
         <h2>Bids</h2>
-        <app-order-table [orders$]="bids$"></app-order-table>
+        <app-order-table [orders$]="bids$" [group]="group"></app-order-table>
     </div>
     <div class="order-table">
         <h2>Asks</h2>
-        <app-order-table [orders$]="asks$" [flipAxis]="true"></app-order-table>
+        <app-order-table [orders$]="asks$" [group]="group" [flipAxis]="true"></app-order-table>
     </div>
 </div>

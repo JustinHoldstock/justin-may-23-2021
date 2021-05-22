@@ -27,3 +27,4 @@ Notes:
 - Questions.MD for technical Qs
 - pause stream on tab navigation
 - only update total is previous has changed
+- Maybe a little better description of grouping
