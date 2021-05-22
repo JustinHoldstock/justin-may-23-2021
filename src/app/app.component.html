@@ -1,8 +1,6 @@
 <div>
     <h2>Bids</h2>
-    <ng-container *ngIf="bids$ | async as bids">
-        <app-order-table [orders]="bids"></app-order-table>
-    </ng-container>
+    <app-order-table [orders$]="bids$"></app-order-table>
 </div>
 <div>
     <h2>Asks</h2>
