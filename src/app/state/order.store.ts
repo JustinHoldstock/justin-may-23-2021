@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+// Akita store, used for storing state of order items
+
 import { EntityState, EntityStore, StoreConfig } from '@datorama/akita';
 import { Order } from './order.model';
 

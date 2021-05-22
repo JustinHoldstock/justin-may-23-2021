@@ -10,12 +10,10 @@ import { Order } from './state/order.model';
   providers: [OrderService],
 })
 export class AppComponent implements OnInit, OnDestroy {
-  title = 'orderbook';
-
   bids$: Observable<Order[]>;
   asks$: Observable<Order[]>;
 
-  group: number;
+  priceGroup: number;
 
   constructor(private orderData: OrderService) {}
 
@@ -25,7 +23,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   groupChanged(val: number): void {
-    this.group = val;
+    this.priceGroup = val;
   }
 
   ngOnDestroy(): void {}

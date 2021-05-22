@@ -1,3 +1,5 @@
+// Akita query for getting items from the store
+
 import { QueryEntity } from '@datorama/akita';
 import { OrdersState, OrdersStore } from './order.store';
 

@@ -1,3 +1,5 @@
+// Component used for handling price group changes
+
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 const GROUPS = [0.5, 1.0, 2.5, 5.0, 10.0, 25.0, 100, 250, 500, 1000, 2500];
