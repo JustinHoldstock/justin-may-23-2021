@@ -34,7 +34,7 @@ export class OrderDataService {
   messages$$: Subject<any> = new Subject<any>();
 
   /**
-   * Connect or reconnect a websocket to stream order data
+   * Connect a websocket to stream order data
    */
   public connect(): void {
     if (this.socket$ || this.connection) {
