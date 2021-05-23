@@ -1,10 +1,13 @@
 1. What would you add to your solution if you had more time? 
 
-- Background bar to indicate total, like the example. 
-- Hover for rows. I decided to go with a grid layout, but TBH a table may have made this easier for this.
+- Value bar to sit behind the totals. I was initially going to use a table layout, but I wanted to try 
+using grid layout to try something new. After inspecting the example, I see you also used grid.
+- Hover for rows.
 - Loading state for when starting up/restarting socket connection
 - Tab navigation pauses the socket stream
 - Cypress tests and switch to use Jest (Using out of the box Jasmine... ew). Note that I didn't do any UI tests bc I wanted to avoid touching potentially flakey snapshot tests. Cypress should be used for testing ui.
+-  Side note 2: Spent some time in the afternoon of day two to revisit, near the end I realized that when stacked, asks sort Descending. I'd like to do that to give the nice graph comparison.
+- More unit tests. I got hung up and frustrated with some of the service ones. Jasmine wasn't behaving for a few of them.
 
 2. What would you have done differently if you knew this page was going to get thousands of views per second vs per week? 
 
@@ -12,6 +15,7 @@ Assuming this is something that would go into production, I'd
 - put this page behind a login page. We can slow down extreme amounts of traffic by filtering out users that aren't real people with an account.
 - probably make use of a service worker to cache some of the bundle. (Would want to know metrics on single visit users VS frequent, and app load times)
 - put in a piece of UI that allows the user to control how often updates are applied (Right now we're buffering for 150ms between updates)
+- Look at why dips down to 67fps occur, and how we can make these even more performant
 
 3. What was the most useful feature that was added to the latest version of your chosen language? Please include a snippet of code that shows how you've used it. 
 
@@ -36,7 +40,7 @@ someObservable$.subscribe({
 
 4. How would you track down a performance issue in production? Have you ever had to do this?
 
-- Run Chrome profiler against the page to determine where exactly slowdowns are occurring, letting run over a small period of time to collect profiling info (~2-5 minutes)
+- Run Chrome profiler against the page to determine where exactly slowdowns are occurring, letting run over a small period of time to collect profiling info (~2-3 minutes)
 
 5. Can you describe common security concerns to consider for a frontend developer?
 
