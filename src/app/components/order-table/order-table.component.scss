@@ -10,7 +10,7 @@
 
 .grid-container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 0.2fr;
+    grid-template-columns: 1fr 1fr 1fr 0.1fr;
     grid-template-rows: 30px auto auto auto;
     text-align: right;
 }
@@ -24,3 +24,10 @@
     color: #29baa5;
 }
 
+@media screen and (max-width: 600px) {
+    :host {
+        .grid-container {
+            direction: rtl;
+        }
+    }
+}
