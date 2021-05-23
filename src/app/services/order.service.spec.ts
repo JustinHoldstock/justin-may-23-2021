@@ -1,7 +1,7 @@
 import { OrderDataService } from './order-data.service';
 import { OrderService } from './order.service';
 
-fdescribe('OrderService', () => {
+describe('OrderService', () => {
   let service: OrderService;
 
   OrderDataService.prototype.connect = jasmine.createSpy();

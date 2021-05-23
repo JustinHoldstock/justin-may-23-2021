@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
-import { Observable, Subject, Subscription, SubscriptionLike } from 'rxjs';
+import { webSocket } from 'rxjs/webSocket';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { delay, retryWhen, tap } from 'rxjs/operators';
 
 const ORDERS_URL = 'wss://www.cryptofacilities.com/ws/v1';
@@ -27,17 +27,22 @@ interface OrderMessage {
   asks: [number, number][];
 }
 
+interface OrderUpdate {
+  asks: [number, number][];
+  bids: [number, number][];
+}
+
 @Injectable()
 export class OrderDataService {
   socket$: Observable<OrderMessage>;
-  connection: SubscriptionLike;
-  messages$$: Subject<any> = new Subject<any>();
+  connection: Subscription;
+  messages$$: Subject<OrderUpdate> = new Subject<OrderUpdate>();
 
   /**
    * Connect a websocket to stream order data
    */
   public connect(): void {
-    if (this.socket$ || this.connection) {
+    if (this.socket$ || this.connection?.closed) {
       return;
     }
 
