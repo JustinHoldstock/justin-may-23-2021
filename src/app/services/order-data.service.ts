@@ -52,7 +52,7 @@ export class OrderDataService {
       .pipe(
         retryWhen((errors) =>
           errors.pipe(
-            // Log the error
+            // We should display this as error ui
             tap((err) => {
               console.error('Got error', err);
             }),
@@ -64,9 +64,7 @@ export class OrderDataService {
       .subscribe({
         next: (data) => this.messageRecieved(data),
         error: console.error,
-        // In the case of error, just log a message. Don't break experience
-        // thought about snack message when this occurs, but that could be a
-        // horrible experience
+        // We should display this as error ui
       });
   }
 

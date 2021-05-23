@@ -5,6 +5,7 @@ import { Order } from '../state/order.model';
 import { OrdersQuery } from '../state/order.query';
 import { OrdersStore } from '../state/order.store';
 import { OrderDataService } from './order-data.service';
+import { bufferTime, filter, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -28,9 +29,29 @@ export class OrderService implements OnDestroy {
     this.orderDataService.connect();
 
     // Listen for message updates and update order store
-    const messageSub = this.orderDataService.messages$$.subscribe({
-      next: ({ asks, bids }) => this.updateOrders(asks, bids),
-    });
+    const messageSub = this.orderDataService.messages$$
+      .pipe(
+        // Wait 150ms between updates
+        bufferTime(150, 150),
+        // No need to keep empty updates
+        filter((chunks) => !!chunks.length),
+        // Take buffered updates and merge them back, in order they happened
+        map((chunks) => {
+          const asks = [];
+          const bids = [];
+          chunks.forEach((chunk) => {
+            asks.push(...(chunk.asks || []));
+            bids.push(...(chunk.bids || []));
+          });
+          return {
+            asks,
+            bids,
+          };
+        })
+      )
+      .subscribe({
+        next: ({ asks, bids }) => this.updateOrders(asks, bids),
+      });
 
     this.subscriptions.push(messageSub);
 

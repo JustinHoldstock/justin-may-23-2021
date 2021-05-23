@@ -5,10 +5,11 @@ import {
   Component,
   HostBinding,
   Input,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
-import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { interval, Observable, timer } from 'rxjs';
+import { bufferTime, delayWhen, filter, map, tap } from 'rxjs/operators';
 import { Order } from 'src/app/state/order.model';
 
 interface OrderDisplay extends Order {
@@ -21,25 +22,25 @@ interface OrderDisplay extends Order {
   styleUrls: ['./order-table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OrderTableComponent implements OnInit {
+export class OrderTableComponent implements OnInit, OnDestroy {
   @HostBinding('class.flipped') get flipped(): boolean {
     return this.flipAxis;
   }
 
   // Observable containing the list of orders
-  @Input() orders$: Observable<Order[]>;
+  @Input() orders$!: Observable<Order[]>;
   // Whether or not to flip the axis for asks. Bids run right to left
   @Input() flipAxis: boolean;
   // Current price group. In dollars
   @Input() priceGroup = 0.5;
 
   // Used for storing display values, including totals and price groups
-  displayOrders$: Observable<OrderDisplay[]>;
+  orderGroups$: Observable<OrderDisplay[]>;
 
   ngOnInit(): void {
-    this.displayOrders$ = this.orders$.pipe(
+    this.orderGroups$ = this.orders$.pipe(
       filter((orders) => !!orders.length),
-      map((orders) => this.createDisplayOrders(orders))
+      map((orders) => this.createOrderGroups(orders))
     );
   }
 
@@ -57,16 +58,15 @@ export class OrderTableComponent implements OnInit {
 
   /**
    * Given a list of order items, make their price grouped display version.
-   * #TODO: @Jholdstock I want to refactor this, I'm around 8 hours in and getting foggy
    * @param orders - List of orders to group and calulate totals for
    * @returns list of group order display items
    */
-  private createDisplayOrders(orders: Order[]): OrderDisplay[] {
-    // We always know that the store gives us sorted values. First value is
-    // starting bound
+  private createOrderGroups(orders: Order[]): OrderDisplay[] {
+    // Akita store gives us results in the sort order we choose,
+    // We know that the first item in the list is always the highest or lowest value
     const cap = orders.shift();
     let currPriceGroup = this.calculateInitialPriceGroup(cap);
-    const additive = this.priceGroup * (this.flipped ? 1 : -1);
+    // const additive = this.priceGroup * (this.flipped ? 1 : -1);
 
     // Temp display group we'll use to hold onto the group
     let displayGroup = {
@@ -77,15 +77,19 @@ export class OrderTableComponent implements OnInit {
 
     const displayItems = [];
 
-    orders.forEach(({ size, price }) => {
-      // if the difference in price is greater than a single group step
-      // we know we're in a new group
-      if (price % currPriceGroup > this.priceGroup) {
+    orders.forEach((order, index) => {
+      // Figure out if we should create a new group
+      const shouldMakeNewGroup = this.flipAxis
+        ? order.price > currPriceGroup
+        : currPriceGroup - order.price > this.priceGroup;
+
+      if (shouldMakeNewGroup) {
         displayGroup.total += displayGroup.size;
 
         displayItems.push(displayGroup);
 
-        currPriceGroup += additive;
+        currPriceGroup = this.calculateInitialPriceGroup(order);
+
         // Update the temp group to contain our new group
         displayGroup = {
           price: currPriceGroup,
@@ -94,7 +98,13 @@ export class OrderTableComponent implements OnInit {
         };
       }
 
-      displayGroup.size += size;
+      displayGroup.size += order.size;
+
+      // If we're at the end, let's wrap things up
+      if (index === orders.length - 1) {
+        displayGroup.total += displayGroup.size;
+        displayItems.push(displayGroup);
+      }
     });
 
     return displayItems;

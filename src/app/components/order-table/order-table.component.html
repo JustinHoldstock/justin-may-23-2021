@@ -4,7 +4,7 @@
     <div class="col-3 title">Price</div>
     <!-- Spacer -->
     <div class="col-4 title"></div>
-    <ng-container *ngFor="let order of (displayOrders$ | async); index as i">
+    <ng-container *ngFor="let order of (orderGroups$ | async); index as i">
         <!-- Limit to viewing N at a time -->
         <ng-container *ngIf="i < 15">
             <div class="col-1">{{ order.total }}</div>
