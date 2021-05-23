@@ -1,17 +1,17 @@
 1. What would you add to your solution if you had more time? 
 
-- Use the store to store totals so we don't have to calculate every render. My initial implementation, due to dealing with small data sets and 
-generally consumer machines being decently powerd, I put the onus on the client to add those up each render pass
 - Background bar to indicate total, like the example. 
 - Hover for rows. I decided to go with a grid layout, but TBH a table may have made this easier for this.
 - Loading state for when starting up/restarting socket connection
 - Tab navigation pauses the socket stream
+- Cypress tests and switch to use Jest (Using out of the box Jasmine... ew)
 
 2. What would you have done differently if you knew this page was going to get thousands of views per second vs per week? 
 
 Assuming this is something that would go into production, I'd 
 - put this page behind a login page. We can slow down extreme amounts of traffic by filtering out users that aren't real people with an account.
 - probably make use of a service worker to cache some of the bundle. (Would want to know metrics on single visit users VS frequent, and app load times)
+- put in a piece of UI that allows the user to control how often updates are applied (Right now we're buffering for 150ms between updates)
 
 3. What was the most useful feature that was added to the latest version of your chosen language? Please include a snippet of code that shows how you've used it. 
 
@@ -48,4 +48,4 @@ Note: upon testing some of this right now, it might look like Chrome has done so
 6. How would you improve the Kraken API that you just used? 
 
 - I like to work with named JSON props over tuples, but understandably we want a small payload, so tuples suffice.
-- Timestamp. I'd like to know if the updates I'm recieving are in the correct order, and if they've been delayed by the source or not.
+- Timestamp. I'd like to know if there's any other buffering/stale checks we can put in place to not allow old data through.
