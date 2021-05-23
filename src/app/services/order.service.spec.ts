@@ -20,11 +20,18 @@ describe('OrderService', () => {
       expect((service as any).orderDataService.connect).toHaveBeenCalled();
     });
 
-    it('should subscribe to the message obsevable to update orders', () => {
+    // Via Jest I would use mock timers to speed this along and not actually wait
+    it('should subscribe to the message obsevable to update orders', (done) => {
       service.updateOrders = jasmine.createSpy();
+
       (service as any).orderDataService.messages$$.next({ asks: [] });
       (service as any).orderDataService.messages$$.next({ bids: [] });
-      expect(service.updateOrders).toHaveBeenCalledTimes(2);
+
+      // wait for buffer to elapse
+      window.setTimeout(() => {
+        expect(service.updateOrders).toHaveBeenCalled();
+        done();
+      }, 200);
     });
 
     it('should setup a query for asks', (done) => {
