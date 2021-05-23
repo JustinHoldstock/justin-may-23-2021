@@ -8,8 +8,8 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { interval, Observable, timer } from 'rxjs';
-import { bufferTime, delayWhen, filter, map, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { Order } from 'src/app/state/order.model';
 
 interface OrderDisplay extends Order {
@@ -22,7 +22,7 @@ interface OrderDisplay extends Order {
   styleUrls: ['./order-table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OrderTableComponent implements OnInit, OnDestroy {
+export class OrderTableComponent implements OnInit {
   @HostBinding('class.flipped') get flipped(): boolean {
     return this.flipAxis;
   }

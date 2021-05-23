@@ -4,7 +4,7 @@
 - Hover for rows. I decided to go with a grid layout, but TBH a table may have made this easier for this.
 - Loading state for when starting up/restarting socket connection
 - Tab navigation pauses the socket stream
-- Cypress tests and switch to use Jest (Using out of the box Jasmine... ew)
+- Cypress tests and switch to use Jest (Using out of the box Jasmine... ew). Note that I didn't do any UI tests bc I wanted to avoid touching potentially flakey snapshot tests. Cypress should be used for testing ui.
 
 2. What would you have done differently if you knew this page was going to get thousands of views per second vs per week? 
 

@@ -4,7 +4,7 @@ import { Order } from 'src/app/state/order.model';
 
 import { OrderTableComponent } from './order-table.component';
 
-fdescribe('OrderTableComponent', () => {
+describe('OrderTableComponent', () => {
   let component: OrderTableComponent;
   let fixture: ComponentFixture<OrderTableComponent>;
   let orders$;
@@ -85,7 +85,6 @@ fdescribe('OrderTableComponent', () => {
       ];
 
       const result = (component as any).createOrderGroups(orders);
-      console.log(result);
       expect(result).toEqual(expected);
     });
 
