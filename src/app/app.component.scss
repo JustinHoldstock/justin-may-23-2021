@@ -25,6 +25,6 @@ app-group-control {
 @media screen and (max-width: 600px) {
     .order-table-container {
         flex-direction: row;
-        flex-wrap: wrap;
+        flex-wrap: wrap-reverse;
     }
 }

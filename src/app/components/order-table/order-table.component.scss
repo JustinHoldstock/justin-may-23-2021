@@ -1,10 +1,21 @@
+$green: #29baa5;
+$red: #ff5a6a;
+
 :host.flipped {
     .grid-container {
         direction: rtl;
     }
 
     .col-3:not(.title) {
-        color: #ff5a6a;
+        color: $red;
+    }
+
+    .size-rep {
+        background-color: $red;
+    }
+
+    .size-rep{
+        transform-origin: 0 0;
     }
 }
 
@@ -21,13 +32,28 @@
 }
 
 .col-3:not(.title) {
-    color: #29baa5;
+    color: $green;
 }
+
+// I am partially ashamed, I nabbed this from the example
+.size-rep {
+    opacity: 0.5;
+    background-color: $green;
+    grid-column: 1/-1;
+    height: 10px;
+    width: 100%;
+    transform-origin: 100% 0;
+}
+
 
 @media screen and (max-width: 600px) {
     :host {
         .grid-container {
             direction: rtl;
+        }
+
+        .size-rep{
+            transform-origin: 0 0;
         }
     }
 }

@@ -1,4 +1,5 @@
 // Component used for rendering orders
+// Side note, even when we have a spike, this app runs on my machine at 67fps. Nice.
 
 import {
   ChangeDetectionStrategy,
@@ -35,6 +36,9 @@ export class OrderTableComponent implements OnInit {
 
   // Used for storing display values, including totals and price groups
   orderGroups$: Observable<OrderDisplay[]>;
+
+  // Total number of orders
+  grandTotal: number;
 
   ngOnInit(): void {
     this.orderGroups$ = this.orders$.pipe(
@@ -101,6 +105,7 @@ export class OrderTableComponent implements OnInit {
       if (index === orders.length - 1) {
         displayGroup.total += displayGroup.size;
         displayItems.push(displayGroup);
+        this.grandTotal = displayGroup.total;
       }
     });
 

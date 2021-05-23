@@ -11,7 +11,7 @@
             <div class="col-2">{{ order.size }}</div>
             <div class="col-3">{{ order.price | currency }}</div>
             <!-- Spacer -->
-            <div class="col-4"></div>
+            <div class="col-4 size-rep" style="transform: scaleX({{order.total/grandTotal}})"></div>
         </ng-container>
     </ng-container>
 </div>
