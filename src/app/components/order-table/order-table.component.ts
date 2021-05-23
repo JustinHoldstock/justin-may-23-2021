@@ -5,7 +5,6 @@ import {
   Component,
   HostBinding,
   Input,
-  OnDestroy,
   OnInit,
 } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -66,9 +65,7 @@ export class OrderTableComponent implements OnInit {
     // We know that the first item in the list is always the highest or lowest value
     const cap = orders.shift();
     let currPriceGroup = this.calculateInitialPriceGroup(cap);
-    // const additive = this.priceGroup * (this.flipped ? 1 : -1);
 
-    // Temp display group we'll use to hold onto the group
     let displayGroup = {
       price: currPriceGroup,
       size: cap.size,
